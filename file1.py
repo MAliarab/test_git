@@ -7,7 +7,9 @@ class TimeRecoringAutoView(GenericAPIView):
         operation_description="date-time format: YYYY-MM-DD hh:mm:ss or iso-8601 (gregorian date)",
         responses={
             201: openapi.Response('Time Created' , TimeRcordingAutoSerializer),
-            400: "BAD",
+
+            400: "BAD REQUEST11",
+
             401: 'Unauthorized'
         },
     )
