@@ -18,3 +18,23 @@ class TimeRecoringAutoView(GenericAPIView):
 
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+class TimeRecoringStopView(GenericAPIView):
+
+    serializer_class = TimeRecordingStopSerializer
+    permission_classes = [permissions.IsAuthenticated]
+    queryset = Time.objects.all()
+    @swagger_auto_schema(
+        operation_description="stop first incomplete time for user of passed token",
+        responses={
+            200: openapi.Response('Time Stopped' , TimeRecordingStopSerializer),
+            400: openapi.Response('Bad Request',swagger_schema.get_schema('time-auto-stop')),
+            401: 'Unauthorized'
+        },
+    )
+    def post(self, request):
+        serializer = self.serializer_class(data=request.data,context=request.auth.key)
+        if serializer.is_valid(raise_exception=True):
+            return Response(serializer.data, status=status.HTTP_200_OK)
+
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
