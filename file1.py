@@ -7,12 +7,12 @@ class TimeRecoringAutoView(GenericAPIView):
         operation_description="date-time format: YYYY-MM-DD hh:mm:ss or iso-8601 (gregorian date)",
         responses={
             201: openapi.Response('Time Created' , TimeRcordingAutoSerializer),
-            400: openapi.Response('Bad Request',swagger_schema.get_schema('time-auto')),
+            400: "BAD REQUEST",
             401: 'Unauthorized'
         },
     )
     def post(self, request):
-        serializer = self.serializer_class(data=request.data,context=request.auth.key)
+        serializer = self.serializer_class(data=request.data)
         if serializer.is_valid(raise_exception=True):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
 
