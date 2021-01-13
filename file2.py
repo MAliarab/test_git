@@ -27,8 +27,7 @@ class TimeRecoringStopView(GenericAPIView):
         operation_description="stop first incomplete time for user of passed token",
         responses={
             200: openapi.Response('Time Stopped' , TimeRecordingStopSerializer),
-            400: openapi.Response('Bad Request',swagger_schema.get_schema('time-auto-stop')),
-            401: 'Unauthorized'
+            401: openapi.Response('UnAuthorize',swagger_schema.get_schema('time-auto-stop')
         },
     )
     def post(self, request):
